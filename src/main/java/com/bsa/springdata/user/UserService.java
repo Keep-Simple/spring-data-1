@@ -6,7 +6,6 @@ import com.bsa.springdata.user.dto.CreateUserDto;
 import com.bsa.springdata.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +65,7 @@ public class UserService {
         var pg = PageRequest.of(page, size, Sort.by("lastName").ascending());
 
         return userRepository
-                .findAllByLastNameStartsWithIgnoreCase(lastName, pg)
+                .findByLastNameStartsWithIgnoreCase(lastName, pg)
                 .stream()
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());
@@ -74,21 +73,33 @@ public class UserService {
 
     public List<UserDto> findByCity(String city) {
         // TODO: Use a single query. Sort users by last name
-        return null;
+        return userRepository
+                .findByOfficeCity(city, Sort.by("lastName").ascending())
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByExperience(int experience) {
         // TODO: Use a single query. Sort users by experience by descending. Try to avoid @Query annotation here
-        return null;
+        return userRepository
+                .findByExperienceGreaterThanEqual(experience, Sort.by("experience").descending())
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByRoomAndCity(String city, String room) {
         // TODO: Use a single query. Use class Sort to sort users by last name.
-        return null;
+        return userRepository
+                .findByOfficeCityAndTeamRoom(city, room, Sort.by("lastName").ascending())
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public int deleteByExperience(int experience) {
         // TODO: Use a single query. Return a number of deleted rows
-        return 0;
+        return userRepository.deleteByExperienceLessThan(experience);
     }
 }

@@ -5,6 +5,9 @@ import com.bsa.springdata.team.TeamRepository;
 import com.bsa.springdata.user.dto.CreateUserDto;
 import com.bsa.springdata.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,8 +63,13 @@ public class UserService {
     }
 
     public List<UserDto> findByLastName(String lastName, int page, int size) {
-        // TODO: Use a single query. Use class Sort to sort users by last name. Try to avoid @Query annotation here
-        return null;
+        var pg = PageRequest.of(page, size, Sort.by("lastName").ascending());
+
+        return userRepository
+                .findAllByLastNameStartsWithIgnoreCase(lastName, pg)
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByCity(String city) {

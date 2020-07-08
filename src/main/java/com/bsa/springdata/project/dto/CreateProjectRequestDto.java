@@ -1,5 +1,8 @@
 package com.bsa.springdata.project.dto;
 
+import lombok.Builder;
+
+@Builder
 public class CreateProjectRequestDto {
     private final String projectName;
     private final String projectDescription;

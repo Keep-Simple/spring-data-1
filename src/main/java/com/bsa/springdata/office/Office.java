@@ -13,6 +13,9 @@ import java.util.UUID;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "offices")
 public class Office {
     @Id

@@ -1,5 +1,6 @@
 package com.bsa.springdata.project.dto;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 
 // TODO: Use this interface when you make a projection from native query.

@@ -24,7 +24,7 @@ public class TeamServiceIntegrationTest {
 		var oldTechnology = "JavaScript";
 		var newTechnology = "Java";
 
-		// act
+        // act
 		teamService.updateTechnology(devsNumber, oldTechnology, newTechnology);
 
 		// assert

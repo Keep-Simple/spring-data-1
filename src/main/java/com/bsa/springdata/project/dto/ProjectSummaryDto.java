@@ -1,10 +1,7 @@
 package com.bsa.springdata.project.dto;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 
-// TODO: Use this interface when you make a projection from native query.
-//  If you don't use native query replace this interface with a simple POJO
 public interface ProjectSummaryDto {
     String getName();
 

@@ -22,11 +22,11 @@ public interface OfficeRepository extends JpaRepository<Office, UUID> {
 
     @Transactional
     @Query(value = "update offices " +
-                   "set address = case" +
+            "set address = case" +
             " when not exists(select offices.id from offices" +
-            "    inner join users u on u.office_id = offices.id" +
-            "    inner join teams t on u.team_id = t.id" +
-            "        where offices.address != :oldAddress and t.technology_id is null" +
+            "    left join users u on u.office_id = offices.id" +
+            "    left join teams t on u.team_id = t.id" +
+            "        where offices.address = :oldAddress and t.technology_id is null " +
             "        group by offices.id) " +
             "then :newAddress else :oldAddress end " +
             "where offices.address = :oldAddress " +
@@ -34,5 +34,4 @@ public interface OfficeRepository extends JpaRepository<Office, UUID> {
             nativeQuery = true)
     Office updateAddress(String oldAddress, String newAddress);
 
-    Optional<Office> findByAddress(String address);
 }

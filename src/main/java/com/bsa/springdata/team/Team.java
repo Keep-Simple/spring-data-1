@@ -20,7 +20,8 @@ import java.util.UUID;
 @Table(name = "teams")
 public class Team {
     @Id
-    @GeneratedValue(generator = "UUID") @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(updatable = false, nullable = false)
     private UUID id;
 
@@ -41,6 +42,6 @@ public class Team {
     private List<User> users;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="technology_id")
+    @JoinColumn(name = "technology_id")
     private Technology technology;
 }

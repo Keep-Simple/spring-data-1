@@ -16,7 +16,6 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Transactional
 public class ProjectServiceIntegrationTest {
 	@Autowired
 	private ProjectService projectService;

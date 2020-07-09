@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,7 +31,6 @@ public class OfficeServiceIntegrationTest {
 	}
 
 	@Test
-    @Transactional
 	@Sql(scripts = { "/clean.sql", "/data.sql" }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 	public void updateOfficeIfThereIsAProject() {
 		// arrange
@@ -48,7 +46,6 @@ public class OfficeServiceIntegrationTest {
 	}
 
 	@Test
-    @Transactional
 	@Sql(scripts = { "/clean.sql", "/data.sql" }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 	public void updateOfficeIfThereIsNoProject() {
 		// arrange

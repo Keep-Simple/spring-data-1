@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface TeamRepository extends JpaRepository<Team, UUID> {
     Optional<Team> findByName(String teamName);
+
+    int countByTechnologyName(String newTechnology);
 }

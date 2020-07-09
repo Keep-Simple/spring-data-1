@@ -22,7 +22,9 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id @GeneratedValue(generator = "UUID") @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(updatable = false, nullable = false)
     private UUID id;
 
@@ -48,18 +50,18 @@ public class User {
             CascadeType.MERGE
     })
     @JoinTable(name = "user2role",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
     public static User fromDto(CreateUserDto user, Office office, Team team) {
         return User.builder()
-            .firstName(user.getFirstName())
-            .lastName(user.getLastName())
-            .experience(user.getExperience())
-            .office(office)
-            .team(team)
-            .build();
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .experience(user.getExperience())
+                .office(office)
+                .team(team)
+                .build();
     }
 }

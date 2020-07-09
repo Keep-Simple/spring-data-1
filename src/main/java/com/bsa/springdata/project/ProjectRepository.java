@@ -12,13 +12,13 @@ import java.util.UUID;
 
 public interface ProjectRepository extends JpaRepository<Project, UUID> {
 
-     @Query(value = "select projects.id, projects.name, projects.description from Projects" +
-             "    inner join teams t on projects.id = t.project_id" +
-             "    inner join technologies tech on t.technology_id = tech.id" +
-             "    inner join users u on t.id = u.team_id" +
-             "    where tech.name = :tech" +
-             "    group by projects.id" +
-             "    order by count(projects.id) desc", nativeQuery = true)
+    @Query(value = "select projects.id, projects.name, projects.description from Projects" +
+            "    inner join teams t on projects.id = t.project_id" +
+            "    inner join technologies tech on t.technology_id = tech.id" +
+            "    inner join users u on t.id = u.team_id" +
+            "    where tech.name = :tech" +
+            "    group by projects.id" +
+            "    order by count(projects.id) desc", nativeQuery = true)
     List<Project> findTop5ByTechnology(String tech, Pageable pg);
 
 

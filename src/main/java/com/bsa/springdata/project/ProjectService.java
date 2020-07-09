@@ -3,7 +3,9 @@ package com.bsa.springdata.project;
 import com.bsa.springdata.project.dto.CreateProjectRequestDto;
 import com.bsa.springdata.project.dto.ProjectDto;
 import com.bsa.springdata.project.dto.ProjectSummaryDto;
+import com.bsa.springdata.team.Team;
 import com.bsa.springdata.team.TeamRepository;
+import com.bsa.springdata.team.Technology;
 import com.bsa.springdata.team.TechnologyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -11,9 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,8 +53,31 @@ public class ProjectService {
         return projectRepository.countProjectIfSomeOneHasRole(role);
     }
 
-    public UUID createWithTeamAndTechnology(CreateProjectRequestDto createProjectRequest) {
+    public UUID createWithTeamAndTechnology(CreateProjectRequestDto req) {
         // TODO: Use common JPARepository methods. Build entities in memory and then persist them
-        return null;
+
+        var technology = Technology
+                .builder()
+                .description(req.getTechDescription())
+                .link(req.getTechLink())
+                .name(req.getTech())
+                .build();
+
+        var team = Team
+                .builder()
+                .name(req.getTeamName())
+                .area(req.getTeamArea())
+                .room(req.getTeamRoom())
+                .technology(technology)
+                .build();
+
+        var project = Project
+                .builder()
+                .name(req.getProjectName())
+                .description(req.getProjectDescription())
+                .teams(List.of(team))
+                .build();
+
+        return projectRepository.saveAndFlush(project).getId();
     }
 }

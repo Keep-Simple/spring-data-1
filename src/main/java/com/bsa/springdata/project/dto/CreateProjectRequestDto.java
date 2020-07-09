@@ -2,8 +2,10 @@ package com.bsa.springdata.project.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 
 @Builder
+@Data
 @AllArgsConstructor
 public class CreateProjectRequestDto {
     private final String projectName;

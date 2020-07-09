@@ -92,14 +92,14 @@ public class ProjectServiceIntegrationTest {
 		);
 
 		// act
-//		var projectId = projectService.createWithTeamAndTechnology(createProjectRequest);
-//
-//		// assert
-//		var newTeam = teamRepository.findByName(createProjectRequest.getTeamName());
-//		var newTechnology = technologyRepository.findByName(createProjectRequest.getTech());
-//
-//		assertThat(projectId).isNotNull();
-//		assertThat(newTeam.isPresent()).isTrue();
-//		assertThat(newTechnology.isPresent()).isTrue();
+		var projectId = projectService.createWithTeamAndTechnology(createProjectRequest);
+
+		// assert
+		var newTeam = teamRepository.findByName(createProjectRequest.getTeamName());
+		var newTechnology = technologyRepository.findByName(createProjectRequest.getTech());
+
+		assertThat(projectId).isNotNull();
+		assertThat(newTeam.isPresent()).isTrue();
+		assertThat(newTechnology.isPresent()).isTrue();
 	}
 }

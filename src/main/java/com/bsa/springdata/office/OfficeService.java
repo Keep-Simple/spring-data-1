@@ -12,7 +12,7 @@ public class OfficeService {
     private OfficeRepository officeRepository;
 
     public List<OfficeDto> getByTechnology(String technology) {
-        // TODO: Use single query to get data. Sort by office name
+        // TODO: Use single query to get data
         return null;
     }
 

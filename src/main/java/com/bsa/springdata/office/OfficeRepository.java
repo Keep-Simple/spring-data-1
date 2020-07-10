@@ -32,6 +32,6 @@ public interface OfficeRepository extends JpaRepository<Office, UUID> {
             "where offices.address = :oldAddress " +
             "returning *",
             nativeQuery = true)
-    Office updateAddress(String oldAddress, String newAddress);
+    Optional<Office> updateAddress(String oldAddress, String newAddress);
 
 }

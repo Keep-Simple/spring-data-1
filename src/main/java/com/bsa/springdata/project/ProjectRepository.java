@@ -38,7 +38,7 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
     @Query(value = "select projects.name," +
             "       count(distinct t) as teamsnumber," +
             "       count(distinct u) as devsnumber," +
-            "       array_to_string(array_agg(distinct t2.name order by t2.name desc), ',') techs" +
+            "       array_to_string(array_agg(distinct t2.name order by t2.name desc), ',') as techs" +
             "            from Projects" +
             "            inner join teams t on projects.id = t.project_id" +
             "            inner join users u on t.id = u.team_id" +

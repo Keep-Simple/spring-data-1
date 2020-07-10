@@ -29,10 +29,14 @@ public class OfficeService {
 
         var res = officeRepository.updateAddress(oldAddress, newAddress);
 
-        if (res.getAddress().equals(oldAddress)) {
+        if (res.isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(res).map(OfficeDto::fromEntity);
+        if (res.get().getAddress().equals(oldAddress)) {
+            return Optional.empty();
+        }
+
+        return res.map(OfficeDto::fromEntity);
     }
 }

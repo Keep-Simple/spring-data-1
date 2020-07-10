@@ -28,9 +28,9 @@ public interface TeamRepository extends JpaRepository<Team, UUID> {
     @Query(nativeQuery = true,
     value = "update technologies as tech " +
             "set name = :newTech " +
-            "from teams as tt " +
+            "from teams tt " +
             "where tech.name = :oldTech and " +
-            "(select count(*) from teams inner join users u on teams.id = u.team_id where u.team_id = tt.id) < :num")
+            "(select count(*) from users where tt.technology_id = tech.id and users.team_id = tt.id) < :num")
     void updateTechWhereLessThen(int num, String oldTech, String newTech);
 
 }

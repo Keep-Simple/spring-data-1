@@ -26,7 +26,7 @@ public interface OfficeRepository extends JpaRepository<Office, UUID> {
             " when not exists(select offices.id from offices" +
             "    left join users u on u.office_id = offices.id" +
             "    left join teams t on u.team_id = t.id" +
-            "        where offices.address = :oldAddress and t.technology_id is null " +
+            "        where offices.address = :oldAddress and t.project_id is null " +
             "        group by offices.id) " +
             "then :newAddress else :oldAddress end " +
             "where offices.address = :oldAddress " +

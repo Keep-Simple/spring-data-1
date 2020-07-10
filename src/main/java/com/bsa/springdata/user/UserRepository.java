@@ -11,9 +11,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     List<User> findByLastNameStartsWithIgnoreCase(String lastname, Pageable pg);
 
-    List<User> findByOfficeCity(String city, Sort sort);
+    List<User> findByOfficeCityOrderByLastName(String city);
 
-    List<User> findByExperienceGreaterThanEqual(int exp, Sort sort);
+    List<User> findByExperienceGreaterThanEqualOrderByExperienceDesc(int exp);
 
     List<User> findByOfficeCityAndTeamRoom(String city, String room, Sort sort);
 

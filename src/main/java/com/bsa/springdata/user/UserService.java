@@ -62,7 +62,7 @@ public class UserService {
     }
 
     public List<UserDto> findByLastName(String lastName, int page, int size) {
-        var pg = PageRequest.of(page, size, Sort.by("lastName").ascending());
+        var pg = PageRequest.of(page, size, Sort.sort(User.class).by(User::getLastName));
 
         return userRepository
                 .findByLastNameStartsWithIgnoreCase(lastName, pg)
@@ -74,7 +74,7 @@ public class UserService {
     public List<UserDto> findByCity(String city) {
         // TODO: Use a single query. Sort users by last name
         return userRepository
-                .findByOfficeCity(city, Sort.by("lastName").ascending())
+                .findByOfficeCityOrderByLastName(city)
                 .stream()
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());
@@ -83,7 +83,7 @@ public class UserService {
     public List<UserDto> findByExperience(int experience) {
         // TODO: Use a single query. Sort users by experience by descending. Try to avoid @Query annotation here
         return userRepository
-                .findByExperienceGreaterThanEqual(experience, Sort.by("experience").descending())
+                .findByExperienceGreaterThanEqualOrderByExperienceDesc(experience)
                 .stream()
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());
@@ -92,7 +92,7 @@ public class UserService {
     public List<UserDto> findByRoomAndCity(String city, String room) {
         // TODO: Use a single query. Use class Sort to sort users by last name.
         return userRepository
-                .findByOfficeCityAndTeamRoom(city, room, Sort.by("lastName").ascending())
+                .findByOfficeCityAndTeamRoom(city, room, Sort.sort(User.class).by(User::getLastName))
                 .stream()
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());
